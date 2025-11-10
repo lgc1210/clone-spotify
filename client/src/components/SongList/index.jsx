@@ -1,7 +1,7 @@
 import React from "react";
 import SongItem from "../SongItem";
-import { usePlayer } from "../../contexts/player";
-import { usePlaylist } from "../../contexts/playlist";
+import { usePlayer } from "../../contexts/Player";
+import { usePlaylist } from "../../contexts/Playlist";
 
 const SongList = ({ songList, playlistId }) => {
 	const { playSong } = usePlayer();

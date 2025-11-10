@@ -2,7 +2,7 @@ import { Spin } from "antd";
 import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import paths from "../../constants/paths";
-import { usePlayer } from "../../contexts/player";
+import { usePlayer } from "../../contexts/Player";
 import { useAuth } from "../../contexts/Auth";
 
 const Navbar = React.lazy(() => import("../../components/Navbar"));

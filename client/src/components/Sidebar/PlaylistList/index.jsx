@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from "react";
 import PlaylistItem from "../PlaylistItem";
-import { usePlaylist } from "../../../contexts/playlist";
+import { usePlaylist } from "../../../contexts/Playlist";
 import _ from "lodash";
 import { SearchOutlined } from "@ant-design/icons";
 

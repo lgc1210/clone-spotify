@@ -3,7 +3,7 @@ import { useUser } from "../../contexts/User";
 import { Spin } from "antd";
 import AlbumAndArtistWrap from "../AlbumAndArtistWrap";
 import { useAuth } from "../../contexts/Auth";
-import { usePlaylist } from "../../contexts/playlist";
+import { usePlaylist } from "../../contexts/Playlist";
 import { useSong } from "../../contexts/Song";
 import { notify } from "../Toast";
 import SongListWrap from "../SongListWrap";

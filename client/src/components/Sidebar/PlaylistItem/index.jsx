@@ -1,8 +1,8 @@
 import { Popover } from "antd";
 import SongIcon from "../../../components/Icons/SongIcon";
 import { memo, useMemo, useState } from "react";
-import { usePlaylist } from "../../../contexts/playlist";
-import { usePlayer } from "../../../contexts/player";
+import { usePlaylist } from "../../../contexts/Playlist";
+import { usePlayer } from "../../../contexts/Player";
 import { useNavigate } from "react-router-dom";
 import paths from "../../../constants/paths";
 import { Play, Pause } from "lucide-react";
