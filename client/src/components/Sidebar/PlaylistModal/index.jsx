@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { X, Music, MessageSquareWarning, Pencil } from "lucide-react";
 import Overlay from "../../Overlay";
-import { usePlaylist } from "../../../contexts/playlist";
+import { usePlaylist } from "../../../contexts/Playlist";
 import _ from "lodash";
 
 const PlaylistModal = ({

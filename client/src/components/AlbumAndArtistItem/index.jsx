@@ -2,7 +2,7 @@ import { Button } from "antd";
 import PlayIcon from "../Icons/PlayIcon";
 import { useNavigate } from "react-router-dom";
 import paths from "../../constants/paths";
-import { usePlayer } from "../../contexts/player";
+import { usePlayer } from "../../contexts/Player";
 
 const AlbumAndArtistItem = ({ item, type, index, list }) => {
 	const navigate = useNavigate();

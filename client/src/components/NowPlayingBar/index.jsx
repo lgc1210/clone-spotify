@@ -14,7 +14,7 @@ import { DownloadOutlined } from "@ant-design/icons";
 import { useSong } from "../../contexts/Song";
 import { useDownloadedAt } from "../../contexts/DownloadedAt";
 import { useAuth } from "../../contexts/Auth";
-import { usePlaylist } from "../../contexts/playlist";
+import { usePlaylist } from "../../contexts/Playlist";
 import { Popover } from "antd";
 import SongIcon from "../../components/Icons/SongIcon";
 import { useNavigate } from "react-router-dom";
@@ -46,12 +46,11 @@ const NowPlayingBar = () => {
 
 	const handleSongNavigateClick = () => {
 		navigate(paths.details + `?detailsId=${currentSong?.id}&type=song`);
-	}
+	};
 
 	const handleUserNavigateClick = () => {
 		navigate(paths.details + `?detailsId=${currentSong?.user.id}&type=user`);
-	}
-	
+	};
 
 	// Load new song when currentSong changes
 	useEffect(() => {
@@ -199,11 +198,13 @@ const NowPlayingBar = () => {
 						)}
 					</div>
 					<div>
-						<p className='hover:underline text-white uppercase cursor-pointer'
+						<p
+							className='hover:underline text-white uppercase cursor-pointer'
 							onClick={handleSongNavigateClick}>
 							{currentSong?.title || "SONG TITLE"}
 						</p>
-						<p className='hover:underline text-white/50 uppercase hover:text-white text-xs cursor-pointer'
+						<p
+							className='hover:underline text-white/50 uppercase hover:text-white text-xs cursor-pointer'
 							onClick={handleUserNavigateClick}>
 							{currentSong?.user?.name || "USER"}
 						</p>
