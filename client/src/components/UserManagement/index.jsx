@@ -61,23 +61,22 @@ const UserManagement = () => {
 	   Cột hiển thị
 	────────────────────────────────── */
 	const columns = [
-		{ title: "ID",    dataIndex: "id",    key: "id" },
-		{ title: "Name",  dataIndex: "name",  key: "name" },
+		{ title: "ID", dataIndex: "id", key: "id" },
+		{ title: "Name", dataIndex: "name", key: "name" },
 		{ title: "Email", dataIndex: "email", key: "email" },
 		{
 			title: "Actions",
 			key: "actions",
 			render: (_, record) => (
 				<span>
-					<Button size="small" onClick={() => handleViewStats(record.id)}>
+					{/* <Button size='small' onClick={() => handleViewStats(record.id)}>
 						Stats
-					</Button>
+					</Button> */}
 					<Button
-						size="small"
+						size='small'
 						danger
 						style={{ marginLeft: 8 }}
-						onClick={() => handleDelete(record.id)}
-					>
+						onClick={() => handleDelete(record.id)}>
 						Delete
 					</Button>
 				</span>
@@ -91,9 +90,9 @@ const UserManagement = () => {
 
 			{error && (
 				<Alert
-					message="Error"
+					message='Error'
 					description={error}
-					type="error"
+					type='error'
 					showIcon
 					closable
 					style={{ marginBottom: 16 }}
@@ -104,7 +103,7 @@ const UserManagement = () => {
 				<Table
 					dataSource={users}
 					columns={columns}
-					rowKey="id"
+					rowKey='id'
 					pagination={{ pageSize: 10 }}
 					scroll={{ x: "max-content" }}
 				/>

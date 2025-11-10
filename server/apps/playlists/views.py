@@ -246,7 +246,7 @@ class GetPlaylistsByUserIdView(APIView):
             )
 
         # Serialize data và trả về
-        serializer = PlaylistSerializer(playlists, many=True)
+        serializer = PlaylistSerializer(playlists, many=True, context={"request": request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

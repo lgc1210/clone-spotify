@@ -2,25 +2,43 @@ import { Button } from "antd";
 import PlayIcon from "../Icons/PlayIcon";
 import { useNavigate } from "react-router-dom";
 import paths from "../../constants/paths";
-import { usePlayer } from "../../contexts/Player";
+import { usePlayer } from "../../contexts/player";
 
 const AlbumAndArtistItem = ({ item, type, index, list }) => {
 	const navigate = useNavigate();
-	const { playSong } = usePlayer();
+	const { playSong, currentSong, isPlaying, togglePlay } = usePlayer();
 
 	const handleClickItem = (event, path) => {
 		event.stopPropagation();
-		if (type === "song" || type === "user") 
+		if (type === "song" || type === "user")
 			navigate(`${path}?detailsId=${item?.id}&type=${type}`);
-		else 
-			navigate(`${paths.playlist.replace(":id", item?.id)}`);
+		else navigate(`${paths.playlist.replace(":id", item?.id)}`);
 	};
 
 	const handlePlay = (event) => {
 		event.stopPropagation();
 
-		if (type === "song" && item) {
-			playSong(item, list || [item], index);
+		const flatPlaylist =
+			list?.flatMap((playlist) => playlist?.songs || []) || [];
+
+		const playListSongs = flatPlaylist
+			.map((fp) => fp?.song)
+			.filter((song) => song !== undefined);
+
+		// Nếu kiểu là "song" hoặc "album", xử lý logic phát
+		if ((type === "song" || type === "album") && item) {
+			const currentSongId = currentSong?.id;
+			const isCurrentSongPlaying =
+				isPlaying && playListSongs?.some((s) => s?.id === currentSongId);
+
+			if (isCurrentSongPlaying) {
+				togglePlay();
+			} else {
+				// Ưu tiên play từ đầu playlist nếu có, fallback về item
+				const songToPlay = playListSongs[0] || item;
+				const songListToUse = playListSongs.length > 0 ? playListSongs : [item];
+				playSong(songToPlay, songListToUse, null);
+			}
 		}
 	};
 
@@ -41,6 +59,7 @@ const AlbumAndArtistItem = ({ item, type, index, list }) => {
 							src={
 								item?.cover_url || // For songs
 								item?.image || // For users
+								item?.cover || // For playlists
 								songOrUserDefault
 							}
 							alt={item?.title}

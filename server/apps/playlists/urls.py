@@ -16,7 +16,8 @@ urlpatterns = [
     path("", GetAllView.as_view(), name="get-all"),
     path("search/", SearchView.as_view(), name="search"),
     path("detail/", GetDetailView.as_view(), name="get-detail"),
-    path("songs/add/", AddSongToPlayListView.as_view(), name="add-song-to-playlist"),
+    path("songs/add/", AddSongToPlayListView.as_view(),
+         name="add-song-to-playlist"),
     path(
         "songs/remove/",
         RemoveSongFromPlaylistView.as_view(),
@@ -30,5 +31,6 @@ urlpatterns = [
         GetPlaylistsByUserIdView.as_view(),
         name="get-playlists-by-user",
     ),
-    path("favorite/", FavoritePlaylistByUserIdView.as_view(), name="favorite-by-user"),
+    path("favorite/", FavoritePlaylistByUserIdView.as_view(),
+         name="favorite-by-user"),
 ]

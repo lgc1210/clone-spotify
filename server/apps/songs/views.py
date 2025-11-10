@@ -1,6 +1,12 @@
+from .serializers import (
+    UserDetailSerializer,
+    EnhancedSongSerializer,
+    PlaylistSerializer,
+    SongCreateSerializer
+)
+from apps.songs.models import Song
 from django.http import HttpResponse, StreamingHttpResponse
 from rest_framework.views import APIView
-from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
@@ -8,10 +14,10 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from gridfs import GridFS
 from mongoengine.connection import get_db
 from .models import Song
-from .serializers import EnhancedSongSerializer, SongCreateSerializer
 from apps.users.models import User
 from django.http import StreamingHttpResponse
 from rest_framework.views import APIView
+from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from bson import ObjectId
@@ -248,50 +254,6 @@ class SongBulkDestroyView(APIView):
             )
 
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.permissions import AllowAny
-from apps.users.models import User
-from apps.songs.models import Song
-from apps.playlists.models import Playlist
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.permissions import AllowAny
-from apps.users.serializers import UserDetailSerializer
-from apps.playlists.serializers import PlaylistSerializer
-from apps.listenedAt.models import ListenedAt
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-from rest_framework import status
-from apps.users.models import User
-from apps.songs.models import Song
-from apps.listenedAt.models import ListenedAt
-from apps.playlists.models import Playlist
-from .serializers import (
-    UserDetailSerializer,
-    EnhancedSongSerializer,
-    PlaylistSerializer,
-)
-
-
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-from rest_framework import status
-from apps.users.models import User
-from apps.songs.models import Song
-from apps.listenedAt.models import ListenedAt
-from apps.playlists.models import Playlist
-from .serializers import (
-    UserDetailSerializer,
-    EnhancedSongSerializer,
-    PlaylistSerializer,
-)
-
-
 class SongSearchView(APIView):
     permission_classes = [AllowAny]
 
@@ -314,13 +276,15 @@ class SongSearchView(APIView):
             )
 
             # Parse query_set to JSON
-            user_data = UserDetailSerializer(user, context={"request": request}).data
+            user_data = UserDetailSerializer(
+                user, context={"request": request}).data
 
             user_data["total_listen"] = total_listen
 
             user_list.append(user_data)
 
-        sorted_users = sorted(user_list, key=lambda x: x["total_listen"], reverse=True)
+        sorted_users = sorted(
+            user_list, key=lambda x: x["total_listen"], reverse=True)
 
         return sorted_users
 
@@ -402,7 +366,8 @@ class SongSearchView(APIView):
             response["songs"] = self.searchSongAndSortByListen(
                 request, query, search_genre
             )
-            response["playlists"] = self.searchPlaylistAndSortByListen(request, query)
+            response["playlists"] = self.searchPlaylistAndSortByListen(
+                request, query)
         elif search_type == "Users":
             response["users"] = self.searchUserAndSortByListen(request, query)
         elif search_type == "Songs" or (search_type == "Genres" and search_genre):
@@ -410,7 +375,8 @@ class SongSearchView(APIView):
                 request, query, search_genre
             )
         elif search_type == "Playlists":
-            response["playlists"] = self.searchPlaylistAndSortByListen(request, query)
+            response["playlists"] = self.searchPlaylistAndSortByListen(
+                request, query)
 
         return Response(
             response,
