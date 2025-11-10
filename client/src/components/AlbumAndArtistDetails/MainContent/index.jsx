@@ -9,8 +9,8 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
-import { usePlaylist } from "../../../contexts/Playlist";
-import { usePlayer } from "../../../contexts/Player";
+import { usePlaylist } from "../../../contexts/playlist";
+import { usePlayer } from "../../../contexts/player";
 
 const MainContent = ({ user = null, song = null }) => {
 	const [allSongs, setAllSongs] = useState([]);
