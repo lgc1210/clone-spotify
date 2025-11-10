@@ -1,9 +1,9 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Play, Pause, Clock, MoreHorizontal, Check, X } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { usePlaylist } from "../../contexts/playlist";
-import { usePlayer } from "../../contexts/Player";
+import { usePlayer } from "../../contexts/player";
 import formatTime from "../../utils/formatTime";
 import formatTotalDuration from "../../utils/formatTotalDuration";
 import SongIcon from "../Icons/SongIcon";
@@ -103,7 +103,7 @@ const PlaylistDetails = () => {
 	};
 
 	const handleNavigate = (item, type) => {
-		navigate(paths.details + `?detailsId=${item?.id}&type=${type}`)
+		navigate(paths.details + `?detailsId=${item?.id}&type=${type}`);
 	};
 
 	if (loadingPlaylist) {
@@ -151,10 +151,11 @@ const PlaylistDetails = () => {
 									"https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"
 								}
 								alt=''
-								onClick={()=>handleNavigate(playlist?.user, "user")}
+								onClick={() => handleNavigate(playlist?.user, "user")}
 							/>
-							<span className='font-bold hover:underline hover:cursor-pointer'
-								onClick={()=>handleNavigate(playlist?.user, "user")}>
+							<span
+								className='font-bold hover:underline hover:cursor-pointer'
+								onClick={() => handleNavigate(playlist?.user, "user")}>
 								{playlist?.user?.name || "Unknown User"}
 							</span>
 						</div>
@@ -240,10 +241,13 @@ const PlaylistDetails = () => {
 												? "text-green-500"
 												: "text-white"
 										}`}>
-										<p onClick={()=>handleNavigate(item?.song, "song")}>{item.song?.title || "Unknown Title"}</p>
+										<p onClick={() => handleNavigate(item?.song, "song")}>
+											{item.song?.title || "Unknown Title"}
+										</p>
 									</div>
-									<div className='text-sm text-gray-400 hover:underline hover:text-white cursor-pointer'
-										onClick={()=>handleNavigate(item?.song?.user, "user")}>
+									<div
+										className='text-sm text-gray-400 hover:underline hover:text-white cursor-pointer'
+										onClick={() => handleNavigate(item?.song?.user, "user")}>
 										{item.song?.user?.name || "Unknown Artist"}
 									</div>
 								</div>
