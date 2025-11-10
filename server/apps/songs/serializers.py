@@ -42,15 +42,13 @@ class EnhancedSongSerializer(SongSerializer):
     listened_at_count = serializers.SerializerMethodField()
 
     def get_audio_url(self, obj):
-        """Generate URL for streaming the audio file"""
         request = self.context.get("request")
         if request and obj.audio and hasattr(obj.audio, "grid_id"):
             base_url = request.build_absolute_uri("/").rstrip("/")
-            return f"{base_url}/api/songs/{obj.id}/audio"
+            return f"{base_url}/api/songs/{obj.id}/audio"   
         return None
 
     def get_video_url(self, obj):
-        """Generate URL for streaming the video file"""
         request = self.context.get("request")
         if request and obj.video and hasattr(obj.video, "grid_id"):
             base_url = request.build_absolute_uri("/").rstrip("/")
@@ -58,7 +56,6 @@ class EnhancedSongSerializer(SongSerializer):
         return None
 
     def get_cover_url(self, obj):
-        """Generate URL for retrieving the cover image"""
         request = self.context.get("request")
         if request and obj.cover and hasattr(obj.cover, "grid_id"):
             base_url = request.build_absolute_uri("/").rstrip("/")
@@ -66,7 +63,6 @@ class EnhancedSongSerializer(SongSerializer):
         return None
 
     def get_listened_at_count(self, obj):
-        """Calculate the number of times this song has been listened to"""
         return ListenedAt.objects.filter(song=obj).count()
 
 

@@ -20,6 +20,8 @@ from apps.auths.utils import (
     get_or_create_user,
     create_tokens,
 )
+from apps.playlists.models import Playlist
+import datetime
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -61,6 +63,7 @@ class GoogleCallbackView(APIView):
             )
 
         user_info = get_google_user_info(token_data["access_token"])
+
         if not user_info:
             return Response(
                 {"error": "Lỗi xác thực Google"}, status=status.HTTP_400_BAD_REQUEST
@@ -68,6 +71,16 @@ class GoogleCallbackView(APIView):
 
         user = get_or_create_user(user_info)
         tokens = create_tokens(user)
+
+        playlist_data = {
+            "user": user,
+            "name": "Favorite",
+                    "desc": "Your favorite songs",
+                    "is_favorite": True,
+                    "created_at": datetime.datetime.now(),
+                    "updated_at": datetime.datetime.now(),
+        }
+        Playlist.create(playlist_data)
 
         print("Trả về token và user")
         print(f"User: {user.name}")
@@ -183,7 +196,8 @@ class ChangePasswordView(APIView):
         serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():
             # Kiểm tra mật khẩu cũ
-            old_password = serializer.validated_data["old_password"].encode("utf-8")
+            old_password = serializer.validated_data["old_password"].encode(
+                "utf-8")
             stored_password = request.user.password.encode("utf-8")
 
             if not bcrypt.checkpw(old_password, stored_password):
@@ -193,7 +207,8 @@ class ChangePasswordView(APIView):
                 )
 
             # Mã hóa và lưu mật khẩu mới
-            new_password = serializer.validated_data["new_password"].encode("utf-8")
+            new_password = serializer.validated_data["new_password"].encode(
+                "utf-8")
             hashed_password = bcrypt.hashpw(new_password, bcrypt.gensalt()).decode(
                 "utf-8"
             )

@@ -102,7 +102,7 @@ const Axios = ({ children }) => {
 						setAccessToken(null);
 						setRefreshToken(null);
 
-						notify("Session expired. Please log in again", "error");
+						// notify("Session expired. Please log in again", "error");
 						return Promise.reject(refreshError);
 					}
 				}
